@@ -1,0 +1,87 @@
+import ketai.sensors.*;
+
+KetaiAudioInput mic;
+short[] data;
+
+float xx= width, yy = height;
+float m,mi,xi;
+void setup() {
+/*  orientation(LANDSCAPE);*/
+  mic = new KetaiAudioInput(this);
+  noStroke();
+}
+
+void draw() {
+  /* fill(0, 5);
+   rect(0, 0, width*2, height*2);*/
+  rectMode(CENTER);
+  background(164, 0, 164);
+  if(m>=240.000);background(mi/100, 0,mi/10);
+  textSize(24);
+  /*text(this.data,50,30);  
+  /**/
+  star();
+  stroke(255);strokeWeight(0.1);
+  if (data != null)
+  {  
+    
+    for (int i = 0; i < data.length; i++)
+    {
+      if (i != data.length-1){
+        m=map(data[i], -32768, 32767, xx, 0);
+        mi=data[i];
+        pushMatrix();
+        translate(0,mouseY);
+        xi =map(i,0,data.length,abs(mouseX-width),mouseX);
+        line(xi, m, width/2, height-mouseY);
+        point(xi, m);
+        
+        popMatrix();
+        }
+    }
+  }
+
+  if (mic.isActive())
+    text("READING MIC", width/2, height/2);
+  else
+    text("NOT READING MIC", width/2, height/2);
+    
+  
+}
+void mouseReleased() {
+  background(84, 00, 84);
+}
+
+void onAudioEvent(short[] _data)
+{
+  data= _data;/*text($data, 10, 30);*/
+}
+
+void mousePressed()
+{
+  if (mic.isActive())
+    mic.stop(); 
+  else
+    mic.start();
+}
+
+void star(){
+  text(m,10,200);
+  
+  text(mi,10,240);
+  pushMatrix();
+  translate(width/3, height/3);
+  float t= atan2(abs(mouseX-width/3), abs(mouseY-height/3)); 
+  text(t,10,100);
+  fill(t*100, 100);
+  rotate(t); 
+  for (int p=0; p<2; p++) {
+    rotate(PI/2);
+    quad(0, m-240, t*10, 0, 0, -m+240, -t*10, 0);
+    pushMatrix();
+    rotate(PI/4);
+    quad(0, mi/100, t*16, 0, 0, -mi/100, -t*16, 0);
+    popMatrix();
+  }
+  popMatrix();
+}
