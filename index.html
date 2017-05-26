@@ -3,32 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <title>The eggs are born!!!</title>
-</head>
+   <style>
+      body {
+          margin: 0;
+          font-family: monospace;
+      }
+      canvas {
+          display: block;
+          width: 100vw;
+          height: 100vh;
+      }
+      #b {
+        position: absolute;
+        top: 10px;
+        width: 100%;
+        text-align: center;
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
 
-<body>
-  
+
   
 <a href="phyllotaxis.html">phyllotaxis.html</a><br>
 <a href="docs/">collection</a><br>
 <a href="docs/CharMatrix1_2017-04-30_14-54-46.html">CharMatrix1</a><br>
-<a href="/docs/CharMatrix2_2017-04-30_14-57-45.html">CharMatrix2</a><br>
-<a href="/docs/CharMatrix3f_2017-04-30_14-53-06.html">CharMatrix3</a><br>
-<a href="/docs/KanjiPoints_2017-05-01_15-08-46.html">Kanji and Points</a><br>
-<a href="/docs/Mandala_2017-05-01_15-50-15.html">Mandala</a><br>
-<a href="/docs/Mandalablur_2017-05-08_21-30-45.html">Blurred mandala</a><br>
-<a href="/docs/Orchid_2017-05-07_15-36-05.html"> Digital orchid</a><br>
-<a href="/docs/Pentapersp_2017-05-07_15-36-39.html">Pentagramatic</a><br>
-<a href="/docs/RectHsb_2017-05-02_00-56-42.html">HSB</a><br>
-<a href="/docs/SpiralduJour_2017-05-07_15-34-08.html">SpiralduJour</a><br>
-<a href="/docs/Swarm_2017-05-01_23-46-29.html">Swarm</a><br>
-<a href="/docs/TriangleRgb_2017-05-01_15-47-14.html">TriangleRgb</a><br>
-<a href="/docs/Triangle_2017-05-01_15-48-44.html">Triangle</a><br>
-<a href="/docs/YinYang_2017-05-01_15-54-57.html">YinYang</a><br>
-<a href="/docs/lumboTitle_2017-04-30_14-51-13.html">Title</a><br>
-<a href="/docs/lumboTitle_2017-05-01_01-09-01.html">M'lumbo title</a><br>
-<a href="/docs/phyllotaxis.html">phyllotaxis</a><br>
-<a href="/docs/phyllotaxis2.html">phyllotaxis 2</a><br>
+<a href="docs/CharMatrix2_2017-04-30_14-57-45.html">CharMatrix2</a><br>
+<a href="docs/CharMatrix3f_2017-04-30_14-53-06.html">CharMatrix3</a><br>
+<a href="docs/KanjiPoints_2017-05-01_15-08-46.html">Kanji and Points</a><br>
+<a href="docs/Mandala_2017-05-01_15-50-15.html">Mandala</a><br>
+<a href="docs/Mandalablur_2017-05-08_21-30-45.html">Blurred mandala</a><br>
+<a href="docs/Orchid_2017-05-07_15-36-05.html"> Digital orchid</a><br>
+<a href="docs/Pentapersp_2017-05-07_15-36-39.html">Pentagramatic</a><br>
+<a href="docs/RectHsb_2017-05-02_00-56-42.html">HSB</a><br>
+<a href="docs/SpiralduJour_2017-05-07_15-34-08.html">SpiralduJour</a><br>
+<a href="docs/Swarm_2017-05-01_23-46-29.html">Swarm</a><br>
+<a href="docs/TriangleRgb_2017-05-01_15-47-14.html">TriangleRgb</a><br>
+<a href="docs/Triangle_2017-05-01_15-48-44.html">Triangle</a><br>
+<a href="docs/YinYang_2017-05-01_15-54-57.html">YinYang</a><br>
+<a href="docs/lumboTitle_2017-04-30_14-51-13.html">Title</a><br>
+<a href="docs/lumboTitle_2017-05-01_01-09-01.html">M'lumbo title</a><br>
+<a href="docs/phyllotaxis.html">phyllotaxis</a><br>
+<a href="docs/phyllotaxis2.html">phyllotaxis 2</a><br>
 
-</body>
+  </body>
+  <script id="vs" type="notjs">
+attribute vec4 position;
 
+void main() {
+  gl_Position = position;
+}
+  </script>
+  <script id="fs" type="notjs">
+precision mediump float;
+
+uniform vec2 resolution;
+uniform float time;
+
+void main() {
+  vec2 uv = gl_FragCoord.xy / resolution;
+  float color = 0.0;
+  // lifted from glslsandbox.com
+  color += sin( uv.x * cos( time / 3.0 ) * 60.0 ) + cos( uv.y * cos( time / 2.80 ) * 10.0 );
+  color += sin( uv.y * sin( time / 2.0 ) * 40.0 ) + cos( uv.x * sin( time / 1.70 ) * 40.0 );
+  color += sin( uv.x * sin( time / 1.0 ) * 10.0 ) + sin( uv.y * sin( time / 3.50 ) * 80.0 );
+  color *= sin( time / 10.0 ) * 0.5;
+
+  gl_FragColor = vec4( vec3( color * 0.5, sin( color + time / 2.5 ) * 0.75, color ), 1.0 );
+}
+  </script>
+  <script src="twgl.min.js"></script>
+  <script>
+    "use strict";
+    var gl = twgl.getWebGLContext(document.getElementById("c"));
+    var programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
+
+    var arrays = {
+      position: [-1, -1, 0, 1, -1, 0, -1, 1, 0, -1, 1, 0, 1, -1, 0, 1, 1, 0],
+    };
+    var bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
+
+    function render(time) {
+      twgl.resizeCanvasToDisplaySize(gl.canvas);
+      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+      var uniforms = {
+        time: time * 0.001,
+        resolution: [gl.canvas.width, gl.canvas.height],
+      };
+
+      gl.useProgram(programInfo.program);
+      twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
+      twgl.setUniforms(programInfo, uniforms);
+      twgl.drawBufferInfo(gl, bufferInfo);
+
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  </script>
 </html>
