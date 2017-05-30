@@ -11,40 +11,37 @@
 		<script type="text/processing" data-processing-target="sketchCanvas">
 		WIDTH = window.innerWidth;
 		HEIGHT = window.innerHeight;
-			/* Basic Processing(.js) script */ 
-int rx =20,ry =20;
+/* Basic Processing(.js) script */ 
+float x,x2,y,z,r;
 void setup(){
-	size(WIDTH, HEIGHT);
-	background(0);
-	fill(255,50);
-		/*noStroke();*/
-		colorMode(HSB);
+size(WIDTH, HEIGHT);
+x=0;x2=0;y=HEIGHT;z=0;r=100;
+colorMode(HSB);
+background(0);
 }
 
 void draw(){
-	translate(width/2,height/2);
-	rectMode(CENTER);
-	stroke(0,mouseX/4);
-	rotate(rx);
-	
-	
-	rect(rx, ry, 100, 100);
-	rx++;ry++;
-	if(rx>height/2){
-		rx*=-1;ry*=-1;
-		fill(abs(rx),abs(rx-ry/2),125,abs(rx/10));
-		}
-	/*if(rx<20)background(0);*/
-}
-void mousePressed(){
-	col();
-	}
-void col(){
-temprx=abs(rx);
-	fill(temprx,abs(ry),200,abs(rx/2-ry));
-	background(0);
-	rx*=-1;ry*=-1;
-	if(rx>0)fill(abs(rx),125,125,abs(rx));
+fill(abs(x2),x2,x,3);
+rect(0,0,width*3,height*3);
+translate(width/2, 0);
+if(dist(x,y,x2,y)<r){fill(255,123,55,5);}
+else{fill(abs(y),255,55,5);}
+stroke(abs(x),155,abs(x)*10,abs(x)*10);
+strokeWeight(2);
+x-=cos(frameCount/40)*2 ;
+x2+=sin(frameCount/40)*2 ;
+rectMode(CENTER);
+
+ellipse(x,y,r+x,r-x2);
+   ellipse(x2,y+10,r-x2,r+x);
+
+pushStyle();
+stroke(abs(x),155,123,15);
+strokeWeight(r);
+line(x,y,x2,y);
+popStyle();
+
+y--;if(y<0-r)y=HEIGHT;
 }
 		</script>
 		<canvas id="sketchCanvas"></canvas>
