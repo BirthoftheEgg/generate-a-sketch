@@ -1,0 +1,57 @@
+<html>
+	<head>
+
+<meta name="description" content="Phyllotaxis, sunflower pattern with the golden ratio. Click around to play with direction and transparency">
+<meta name="keywords" content="Processing, generate, p5, processing.js, java, javascript, pixel art, pixel manipulation, transparency, android">
+<meta name="author" content="Paul-Alexandre Meurens">
+<script language="javascript" type="text/javascript" src="processing.js"></script>
+
+	</head>
+	<body style="margin:0;padding:0;">
+		<script type="text/processing" data-processing-target="sketchCanvas">
+		WIDTH = window.innerWidth;
+		HEIGHT = window.innerHeight;
+/* Basic Processing(.js) script */ 
+float p=1;
+void setup(){
+size(WIDTH, HEIGHT);
+colorMode(HSB);
+noStroke();
+}
+
+void draw(){
+
+background(165,100,random(125));
+for(int i=height;i>0;i--){
+stroke(i*2,88,i*2,i/2);
+line(0,i,width,i);
+}
+noStroke();
+translate(0,-100);
+fill(165,80,145);
+triangle(-10,height,200,height,100,height-100);
+triangle(20,height,220,height,130,height-80);
+rect(0,height,width,height);
+fill(165,105,145);
+beginShape();
+vertex(0,height-100);
+vertex(width,height-100);
+vertex(width,height);
+vertex(0,height);
+
+fill(165,90,105);
+beginShape(); 
+vertex(100, height);
+vertex(width, height); 
+vertex(250, height-100); 
+vertex(200, height-80); 
+vertex(190, height-90);
+vertex(150, height-50); 
+endShape(CLOSE);
+endShape(CLOSE);
+}
+
+		</script>
+		<canvas id="sketchCanvas"></canvas>
+	</body>
+	</html>
