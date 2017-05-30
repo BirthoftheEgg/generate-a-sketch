@@ -1,0 +1,52 @@
+<html>
+	<head>
+		 <script language="javascript" type="text/javascript" src="processing.js"></script>
+	</head>
+	<body style="margin:0;padding:0;">
+		<script type="text/processing" data-processing-target="sketchCanvas">
+		WIDTH = window.innerWidth;
+		HEIGHT = window.innerHeight;
+			/* Basic Processing(.js) script */ 
+void setup(){
+size(WIDTH, HEIGHT);
+background(0);
+rectMode(CENTER);
+noStroke();t=0;
+}
+
+void draw(){
+fill(0, 5); 
+  rect(0, 0, width*2, height*2);	
+fill(random(50),0,random(50),random(55));
+rect(random(WIDTH), (HEIGHT/2) - 25, random(WIDTH), random(HEIGHT));
+fill(random(255), random(55), random(123),random(123));
+rect(random(WIDTH), (HEIGHT) - 25, random(WIDTH), random(HEIGHT/1.5));
+nums();
+}
+
+void nums(){
+t++;
+text(random(50),100,60);
+text(Math.floor(random(50)),100,100);
+fill(0,123,0,10);textSize(50);
+text((random(50)),1,50);
+text(t,1,150);
+}
+void mousePressed(){/*noLoop();*/
+fill(0, 127);textSize(50); 
+  rect(0, 0, width*2, height*2);
+  
+fill(random(150,255),0,random(50),random(155,255));
+rect(random(WIDTH), (HEIGHT/2) - 25, random(WIDTH), random(HEIGHT));
+fill(random(255), random(55), random(265),random(200,255));
+rect(random(WIDTH), (HEIGHT) - 25, random(WIDTH), random(HEIGHT/1.5));
+nums();	
+  fill(0,123,0,255);
+text(t,1,150);
+}
+void mouseReleased(){loop();}
+
+		</script>
+		<canvas id="sketchCanvas"></canvas>
+	</body>
+	</html>
