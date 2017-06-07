@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Generative sketches</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <style>
+      body {
+          margin: 0;
+          font-family: monospace;
+      }
+      canvas {
+          display: block;
+          width: 100vw;
+          height: 100vh;
+      }
+      a:link{
+      color: hotpink;
+      }
+      a:visited{
+      color: orange;
+      }
+      a:hover{
+      color:yellow;
+      }
+      h1, h2 {
+      color: peachpuff;
+      font-size: 0.8em;
+      }
+      #b {
+        position: absolute;
+        top: 40px;
+        width: 100%;
+        text-align: center;
+        font-size: 2em;
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+
+     <div id="b">
+      <!--
+      <a href="http://twgljs.org">twgl.js</a> - tiny
+      <a href="phyllotaxis.html">phyllotaxis.html</a><br>
+      <a href="docs/">collection</a><br>
+      -->
+        <span  class="img-rounded" ><iframe src="http://mlumbo.com/space/vr/build/"  width="100%" height="300"></iframe></span>
+        
+  
+<!--
+<h1>Generative sketches with Processing.js</h1>
+<h2>interact with mouse movements and clicks</h2>
+<a href="docs/CharMatrix1_2017-04-30_14-54-46.html">CharMatrix1</a><br>
+<a href="docs/CharMatrix2_2017-04-30_14-57-45.html">CharMatrix2</a><br>
+<a href="docs/CharMatrix3f_2017-04-30_14-53-06.html">CharMatrix</a><br>
+-->
+
+  </body>
+  <script id="vs" type="notjs">
+attribute vec4 position;
+
+void main() {
+  gl_Position = position;
+}
+  </script>
+  <script id="fs" type="notjs">
+precision mediump float;
+
+uniform vec2 resolution;
+uniform float time;
+
+void main() {
+  vec2 uv = gl_FragCoord.xy / resolution;
+  float color = 0.0;
+  // lifted from glslsandbox.com
+  color += sin( uv.x * cos( time / 3.0 ) * 6.0 ) + cos( uv.y * cos( time / 2.80 ) * 1.0 );
+  color += sin( uv.y * sin( time / 2.0 ) * 4.0 ) + cos( uv.x * sin( time / 1.70 ) * 4.0 );
+  color += sin( uv.x * sin( time / 1.0 ) * 1.0 ) + sin( uv.y * sin( time / 3.50 ) * 8.0 );
+  color *= sin( time / 10.0 ) * 0.5;
+
+  gl_FragColor = vec4( vec3( color * 0.5, sin( color + time / 2.5 ) * 0.25, color ), 1.0 );
+}
+  </script>
+  <script src="twgl.min.js"></script>
+  <script>
+    "use strict";
+    var gl = twgl.getWebGLContext(document.getElementById("c"));
+    var programInfo = twgl.createProgramInfo(gl, ["vs", "fs"]);
+
+    var arrays = {
+      position: [-1, -1, 0, 1, -1, 0, -1, 1, 0, -1, 1, 0, 1, -1, 0, 1, 1, 0],
+    };
+    var bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
+
+    function render(time) {
+      twgl.resizeCanvasToDisplaySize(gl.canvas);
+      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+      var uniforms = {
+        time: time * 0.001,
+        resolution: [gl.canvas.width, gl.canvas.height],
+      };
+
+      gl.useProgram(programInfo.program);
+      twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
+      twgl.setUniforms(programInfo, uniforms);
+      twgl.drawBufferInfo(gl, bufferInfo);
+
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  </script>
+</html>
