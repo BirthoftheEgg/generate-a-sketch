@@ -1,0 +1,41 @@
+<html>
+	<head>
+  <title>CircleOverDrive</title>
+<script language="javascript" type="text/javascript" src="processing.js"></script>
+	</head>
+	<body style="margin:0;padding:0;">
+		<script type="text/processing" data-processing-target="sketchCanvas">
+		WIDTH = window.innerWidth;
+		HEIGHT = window.innerHeight;
+			/* Basic Processing(.js) script */ 
+float x,y,r,od,ud,thk,trs,msy;
+void setup(){
+	size(WIDTH, HEIGHT);
+	colorMode(HSB);
+	rectMode(CENTER);
+	x=0;y=0;r=100;od=1;thk=od;
+	msy=155;
+}
+
+void draw(){
+	translate(WIDTH/2, HEIGHT/2);
+	for(float i=0; i<PI*2;i+=0.01){
+		trs=random(255);
+		if(i>1&&i<2)r-=0.51;
+		if(abs(r)>200)r*=-1;
+		stroke(trs,255-x,255-y,mouseX/100);
+		od=sin(i)*10;
+		strokeWeight(msy);
+		point(sin(i)*r,cos(i)*r);
+		}
+}
+void mousePressed(){
+	background(0);
+	msy=mouseY/5;
+	redraw();
+}
+
+		</script>
+		<canvas id="sketchCanvas"></canvas>
+	</body>
+	</html>
