@@ -10,7 +10,7 @@
 var space = " ";
     var speed = "167";
     var pos = 0;
-    var msg = "Generative sketches with Processing.js. Interact with mouse movements and clicks. ";
+    var msg = "Sketches made with processing, on an app called Generate for Android. All sketches are live on this page. Click on the titles for full-page, then use back button. mouseX and mouseY will get you interesting variations ";
     function Scroll() {
       document.title = msg.substring(pos, msg.length) + space + msg.substring(0, pos);
       pos++;
@@ -143,8 +143,6 @@ var space = " ";
   <canvas id="c"></canvas>
 
   <div id="b">
-<!--     <marquee>Sketches made with processing, on an app called Generate for Android. All sketches are live on this page. Click on the titles for full-page, then use back button. mouseX and mouseY will get you interesting variations.</marquee>
- -->
     <!--<h1>Generative sketches with Processing.js</h1>
     <h2>interact with
       mouse movements and clicks</h2>-->
@@ -153,15 +151,13 @@ var space = " ";
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3">
-          <div class="idiv">
             <iframe src="docs/CharMatrix3f_2017-04-30_14-53-06.html" width="100%" height="100%"></iframe>
-            <a href="docs/CharMatrix3f_2017-04-30_14-53-06.html" class="ilink">
-            </a></div>
           <div class="tooltip">Hover over me
             <span class="tooltiptext">
               Far in the ASCII code there are some strange and beautiful characters.<br>
                You can use the mouse to draw with them. <br>
             Variations:<br> 
+              <a href="docs/CharMatrix3f_2017-04-30_14-53-06.html">CharMatrix3</a><br>
             <a href="docs/CharMatrix1_2017-04-30_14-54-46.html">CharMatrix1</a> <br>
               <a href="docs/CharMatrix2_2017-04-30_14-57-45.html">CharMatrix2</a>
         </span>
@@ -169,31 +165,32 @@ var space = " ";
 
         </div>
         <div class="col-sm-3">
-          <div class="idiv">
             <iframe src="docs/KanjiPoints_2017-05-01_15-08-46.html" width="100%" height="100%"></iframe>
             <div class="tooltip">Zen sketching
-              <span class="tooltiptext">Practice your zen gestures and watch them disappear</span>
+              <span class="tooltiptext">Practice your zen gestures and watch them disappear<br>
+              <a href="docs/KanjiPoints_2017-05-01_15-08-46.html"></a>
+              </span>
             </div>
-            <a href="docs/KanjiPoints_2017-05-01_15-08-46.html" class="ilink"></a></div>
         </div>
         
         
          <div class="col-sm-3">
             <iframe src="docs/CircleOverDrive.html" width="100%" height="100%"></iframe>   
-          <div class="tooltip">Variation Flower
-            <span class="tooltiptext">Click for redraw, try lower right corner then upper left corner
-            <a href="docs/CircleOverDrive.html" class="ilink"></a>
+          <div class="tooltip">Embossing Light
+            <span class="tooltiptext">
+              Click for redraw, try lower right corner then upper left corner
+            <a href="docs/CircleOverDrive.html"></a>
             </span>
           </div>
         </div>
 
         
         <div class="col-sm-3">
-          <div class="idiv">
             <iframe src="docs/dual.html" width="100%" height="100%"></iframe>
-            <a href="docs/dual.html" class="ilink"></a></div>
           <div class="tooltip">Dual Rings
-            <span class="tooltiptext">Magic beanstalk in HSB</span>
+            <span class="tooltiptext">Magic beanstalk in HSB<br>
+            <a href="docs/dual.html"></a>
+            </span>
           </div>
 
           <!--Rings of Hidden colors-->
@@ -240,12 +237,9 @@ var space = " ";
           <div class="tooltip">Phyllotaxis
             <span class="tooltiptext">
               Variations: <br>
-              
-              <a href="docs/phyllotaxis2.html" class="ilink"></a><br>
-            <a href="docs/phyllotaxis.html">Flower</a><br>
+              <a href="docs/phyllotaxis2.html"></a><br>
+              <a href="docs/phyllotaxis.html">Flower</a><br>
                           Clicks will create color variations.
-
-
             </span>
           </div>
 
@@ -343,6 +337,12 @@ var space = " ";
         </div>
       </div>
     </div>
+    
+    <!--     <marquee>Sketches made with processing, on an app called Generate for Android. 
+All sketches are live on this page. Click on the titles for full-page, then use back button. 
+mouseX and mouseY will get you interesting variations.</marquee>
+ -->
+
 </body>
 <script id="vs" type="notjs">
   attribute vec4 position; void main() { gl_Position = position; }
