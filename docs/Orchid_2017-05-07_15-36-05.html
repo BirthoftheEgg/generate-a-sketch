@@ -19,13 +19,17 @@ void draw(){
 	rect(-1,-1,width+2,height+2);
 	strokeWeight(1);
 	translate(width/2,height);
-/*	scale(0.5);*/
-/*	 for(int i = 0; i < 100; i += 20) {
-	 	 bezier(90-(i/2.0), 20+i, 210, 10, 220, 150, 120-(i/8.0), 150+(i/4.0)); 
-	 	 }*/
+	scale(0.7);
 	 stroke(cx,88+cx,155+cx,88);
 	 bezier(0,0,0,-100,cos(cx)*wo,-300,sin(cx)*wo,-width+tan(cx)*50);
-	 cx+=ccx/100/*PI*/;/*wo-=0.01;*/
+	 cx+=ccx/PI;
+	 if (cx>=255){cx=0;}
+	 if (mousePressed){
+	 wo--;
+	 }
+}
+void mouseDragged(){
+	wo++;
 }
 		</script>
 		<canvas id="sketchCanvas"></canvas>
